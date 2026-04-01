@@ -1,0 +1,470 @@
+:root {
+  --forest: #17392f;
+  --forest-deep: #0f251f;
+  --navy: #11253b;
+  --navy-deep: #0a1726;
+  --wheat: #c7a557;
+  --wheat-light: #e2c57a;
+  --bone: #f3ede3;
+  --muted: #c7c1b3;
+  --line: rgba(199, 165, 87, 0.26);
+  --panel: rgba(8, 16, 21, 0.74);
+  --shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+  --radius: 24px;
+  --max-width: 1220px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: var(--bone);
+  background:
+    radial-gradient(circle at top left, rgba(199, 165, 87, 0.08), transparent 24%),
+    linear-gradient(180deg, var(--forest-deep) 0%, var(--forest) 42%, var(--navy) 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.35;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.42), rgba(0,0,0,0));
+}
+
+body.body-lock {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+p {
+  line-height: 1.72;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+.container {
+  width: min(calc(100% - 2rem), var(--max-width));
+  margin: 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(16px);
+  background: rgba(8, 14, 18, 0.45);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.site-header--scrolled {
+  background: rgba(8, 14, 18, 0.88);
+  border-color: rgba(199, 165, 87, 0.16);
+}
+
+.site-header__inner {
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.brand__logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(199, 165, 87, 0.18);
+  padding: 0.3rem;
+}
+
+.brand__eyebrow,
+.section-kicker {
+  margin: 0 0 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  color: var(--wheat-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.brand__name {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.desktop-nav {
+  display: none;
+  gap: 1.4rem;
+}
+
+.desktop-nav a {
+  color: var(--muted);
+  transition: color 160ms ease;
+}
+
+.desktop-nav a:hover {
+  color: var(--bone);
+}
+
+.menu-toggle {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(199, 165, 87, 0.28);
+  background: rgba(199, 165, 87, 0.08);
+  border-radius: 16px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--wheat-light);
+  border-radius: 999px;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(86vw, 360px);
+  transform: translateX(100%);
+  transition: transform 220ms ease;
+  background: linear-gradient(180deg, rgba(10,17,24,0.98), rgba(14,30,26,0.98));
+  border-left: 1px solid rgba(199, 165, 87, 0.16);
+  z-index: 1200;
+  padding: 1rem;
+}
+
+.mobile-menu--open {
+  transform: translateX(0);
+}
+
+.mobile-menu__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.mobile-nav {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 1rem;
+}
+
+.mobile-nav a {
+  padding: 0.9rem 0.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: "Oswald", sans-serif;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.54);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+  z-index: 1100;
+}
+
+.menu-backdrop--show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero {
+  position: relative;
+  min-height: min(92vh, 920px);
+  display: flex;
+  align-items: center;
+}
+
+.hero__image-wrap,
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  background:
+    linear-gradient(180deg, rgba(7, 10, 16, 0.2) 0%, rgba(7, 10, 16, 0.64) 58%, rgba(7, 10, 16, 0.9) 100%),
+    linear-gradient(90deg, rgba(15, 37, 31, 0.65) 0%, rgba(17, 37, 59, 0.32) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  padding: 5.5rem 0 4rem;
+}
+
+.hero__panel,
+.story-card,
+.product-card,
+.brands-panel,
+.contact-panel {
+  background: linear-gradient(180deg, rgba(8, 16, 21, 0.72), rgba(9, 22, 20, 0.82));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.hero__panel {
+  max-width: 760px;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.hero h1,
+.section h2,
+.contact-panel h2 {
+  margin: 0 0 1rem;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 8vw, 5.6rem);
+  max-width: 10ch;
+}
+
+.hero__lead {
+  max-width: 58ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.14rem);
+}
+
+.hero__actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 1.4rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0.95rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, var(--wheat-light), var(--wheat));
+  color: #182018;
+}
+
+.btn--secondary {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+}
+
+.section {
+  padding: 1.5rem 0 4rem;
+}
+
+.section-heading {
+  max-width: 760px;
+  margin-bottom: 1.4rem;
+}
+
+.grid-two {
+  display: grid;
+  gap: 1rem;
+}
+
+.story-card,
+.brands-panel,
+.contact-panel {
+  padding: 1.4rem;
+}
+
+.story-card--image {
+  padding: 0;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.story-card--image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 300px;
+}
+
+.product-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+.product-card {
+  overflow: hidden;
+}
+
+.product-card__image-wrap {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(180deg, rgba(199, 165, 87, 0.08), rgba(255,255,255,0.02));
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-card__body {
+  padding: 1.2rem;
+}
+
+.product-card__brand {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  color: var(--wheat-light);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+}
+
+.product-card h3 {
+  margin: 0 0 0.65rem;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.product-card p,
+.story-card p,
+.brands-panel p,
+.section-heading p,
+.contact-panel p,
+.check-list li {
+  color: var(--muted);
+}
+
+.check-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact-email {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--wheat-light);
+  word-break: break-word;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 100ms; }
+.stagger-2 { transition-delay: 180ms; }
+
+@media (min-width: 720px) {
+  .grid-two {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .story-card,
+  .brands-panel,
+  .contact-panel {
+    padding: 1.8rem;
+  }
+}
+
+@media (min-width: 980px) {
+  .desktop-nav {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
